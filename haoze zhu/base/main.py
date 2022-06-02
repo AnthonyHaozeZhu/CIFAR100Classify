@@ -9,6 +9,7 @@
 
 import argparse
 from data import *
+from utils import *
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
@@ -19,3 +20,8 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     train_loader, test_loader = cifar100_dataset(args)
+
+    dataiter = iter(train_loader)
+    images, labels = dataiter.next()
+
+    imshow(torchvision.utils.make_grid(images))
