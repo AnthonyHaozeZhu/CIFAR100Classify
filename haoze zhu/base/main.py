@@ -7,8 +7,6 @@
 """
 
 import argparse
-import os
-
 from tqdm import tqdm
 
 from data import *
@@ -27,14 +25,14 @@ def train(args, epoch):
 
         # forward + backward + optimize
         outputs = net(inputs.to(args.device))
-        loss = criterion(outputs, labels)
+        loss = criterion(outputs, labels.to(args.device))
         loss.backward()
         optimizer.step()
 
         # print statistics
         running_loss += loss.item()
-        if index % 2000 == 1999:    # print every 2000 mini-batches
-            print(f'[{epoch + 1}, {index + 1:5d}] loss: {running_loss / 2000:.3f}')
+        if index % 20 == 19:    # print every 2000 mini-batches
+            logger.info(f'[{epoch + 1}, {index + 1:5d}] loss: {running_loss / 2000:.3f}')
             running_loss = 0.0
 
 
@@ -45,8 +43,8 @@ def validate(args, loss_vector, accuracy_vector):
         data = data.to(args.device)
         target = target.to(args.device)
         output = net(data)
-        val_loss += criterion(output, target).data.item()
-        pred = output.data.max(1)[1] # get the index of the max log-probability
+        val_loss += criterion(output, target.to(args.device)).data.item()
+        pred = output.data.max(1)[1]  # get the index of the max log-probability
         correct += pred.eq(target.data).cpu().sum()
 
     val_loss /= len(test_loader)
@@ -54,15 +52,19 @@ def validate(args, loss_vector, accuracy_vector):
 
     accuracy = 100. * correct.to(torch.float32) / len(test_loader.dataset)
     accuracy_vector.append(accuracy)
-
-    print('\nValidation set: Average loss: {:.4f}, Accuracy: {}/{} ({:.0f}%)\n'.format(
+    logger.info("***** Eval results *****")
+    logger.info('\nValidation set: Average loss: {:.4f}, Accuracy: {}/{} ({:.0f}%)\n'.format(
         val_loss, correct, len(test_loader.dataset), accuracy))
 
 
 def main(args, loss_vector, accuracy_vector):
+    logger.info("***** Running training *****")
+    logger.info("  Num examples = %d", len(train_loader) * args.batch_size)
+    logger.info("  Num Epochs = %d", args.epochs)
+    logger.info("  Batch size = %d", args.batch_size)
     for epoch in range(args.epochs):
         train(args, epoch)
-        PATH = os.path.join(args.data_path, 'cifar_net.pth')
+        PATH = os.path.join(args.logdir, 'cifar_net.pth')
         torch.save(net.state_dict(), PATH)
         validate(args, loss_vector, accuracy_vector)
 
@@ -74,6 +76,7 @@ if __name__ == "__main__":
     parser.add_argument("--device", default='cpu', type=str, help="The training device")
     parser.add_argument("--learning_rate", default=0.0004, type=int, help="learning rate")
     parser.add_argument("--epochs", default=20, type=int, help="Training epoch")
+    parser.add_argument("--logdir", default="./log", type=str)
 
     args = parser.parse_args()
 
@@ -89,16 +92,23 @@ if __name__ == "__main__":
     criterion = nn.CrossEntropyLoss()
     optimizer = torch.optim.Adam(net.parameters(), lr=args.learning_rate)
 
+    if not os.path.exists(args.logdir):
+        os.makedirs('./log')
+    logger = init_logger()
+    # args_logger(args, os.path.join(args.logdir, "args.txt"))
+
     lossv, accv = [], []
     main(args, lossv, accv)
 
     plt.figure(figsize=(5, 3))
     plt.plot(np.arange(1, args.epochs + 1), lossv)
     plt.title('validation loss')
+    plt.savefig(os.path.join(args.logdir, 'validation_loss'))
 
     plt.figure(figsize=(5, 3))
     plt.plot(np.arange(1, args.epochs + 1), accv)
     plt.title('validation accuracy')
+    plt.savefig(os.path.join(args.logdir, 'validation_accuracy'))
 
 
 
