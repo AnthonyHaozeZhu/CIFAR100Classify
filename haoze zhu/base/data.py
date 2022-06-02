@@ -33,5 +33,5 @@ def cifar100_dataset(args):
     cifar100_testing = torchvision.datasets.CIFAR100(root=args.data_path, train=False, download=True, transform=transform_test)
     test_loader = torch.utils.data.DataLoader(cifar100_testing, batch_size=100, shuffle=False, num_workers=num_workers)
 
-    return train_loader, test_loader
+    return train_loader, test_loader, cifar100_training.classes
 

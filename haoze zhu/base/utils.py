@@ -8,6 +8,12 @@
 
 import matplotlib.pyplot as plt
 import numpy as np
+import importlib
+
+
+def create_dataloader(opt):
+    dataloader = importlib.import_module("dataset." + opt.dataname)
+    return dataloader.ImageTextDataloader(opt)
 
 
 def imshow(img):

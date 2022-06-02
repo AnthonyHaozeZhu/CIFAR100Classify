@@ -8,7 +8,6 @@
 
 
 import torch.nn as nn
-import torch.nn.functional as F
 
 
 class DownSample(nn.Module):
@@ -58,6 +57,7 @@ class ResNet(nn.Module):
         self.basic2 = BasicBlock(32, 64, 2, True)
         self.basic3 = BasicBlock(64, 64, 1)
         self.basic4 = BasicBlock(64, 128, 2, True)
+        self.basic5 = BasicBlock(128, 128, 1)
         self.fc1 = nn.Linear(8192, 1024)
         self.fc2 = nn.Linear(1024, 100)
         self.relu2 = nn.ReLU()
