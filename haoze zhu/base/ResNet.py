@@ -48,7 +48,30 @@ class BasicBlock(nn.Module):
         return out
 
 
+class ResNet(nn.Module):
+    def __init__(self):
+        super(ResNet, self).__init__()
+        self.conv = nn.Conv2d(3, 32, kernel_size=(7, 7), stride=(1, 1), padding=(3, 3))
+        self.bn = nn.BatchNorm2d(32)
+        self.relu1 = nn.ReLU()
+        self.basic1 = BasicBlock(32, 32, 1)
+        self.basic2 = BasicBlock(32, 64, 2, True)
+        self.basic3 = BasicBlock(64, 64, 1)
+        self.basic4 = BasicBlock(64, 128, 2, True)
+        self.fc1 = nn.Linear(8192, 1024)
+        self.fc2 = nn.Linear(1024, 100)
+        self.relu2 = nn.ReLU()
 
-
-
+    def forward(self, x):
+        x = self.conv(x)
+        x = self.bn(x)
+        x = self.relu1(x)
+        x = self.basic1(x)
+        x = self.basic2(x)
+        x = self.basic3(x)
+        x = self.basic4(x)
+        x = x.reshape(x.shape[0], -1)
+        x = self.fc1(x)
+        x = self.relu2(x)
+        return self.fc2(x)
 
