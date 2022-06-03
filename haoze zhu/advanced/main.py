@@ -69,12 +69,11 @@ def validate(args, epoch, loss_vector, accuracy_vector):
         val_loss, correct, len(test_loader.dataset), accuracy))
 
 
-def main(args, loss_vector, accuracy_vector):
+def main(args, loss_vector, accuracy_vector, index_num):
     logger.info("***** Running training *****")
     logger.info("  Num examples = %d", len(train_loader) * args.batch_size)
     logger.info("  Num Epochs = %d", args.epochs)
     logger.info("  Batch size = %d", args.batch_size)
-    index_num = 0
     for epoch in range(args.epochs):
         train(args, epoch, index_num)
         PATH = os.path.join(args.logdir, 'cifar_net.pth')
@@ -116,7 +115,8 @@ if __name__ == "__main__":
     # args_logger(args, os.path.join(args.logdir, "args.txt"))
 
     lossv, accv = [], []
-    main(args, lossv, accv)
+    index_num = 0
+    main(args, lossv, accv, index_num)
 
     plt.figure(figsize=(5, 3))
     plt.plot(np.arange(1, args.epochs + 1), lossv)
@@ -127,4 +127,3 @@ if __name__ == "__main__":
     plt.plot(np.arange(1, args.epochs + 1), accv)
     plt.title('validation accuracy')
     plt.savefig(os.path.join(args.logdir, 'validation_accuracy'))
-

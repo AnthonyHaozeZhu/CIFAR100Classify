@@ -96,10 +96,9 @@ class BasicBlock(nn.Module):
     def forward(self, x):
         a = x
         out = self.conv1(x)
-        out = self.attention(out)
         out = self.bn1(out)
         out = self.relu1(out)
-        # out = out * att
+        out = self.attention(out)
         out = self.conv2(out)
         out = self.bn2(out)
         if self.down_sample:
@@ -131,8 +130,7 @@ class ResNet(nn.Module):
         x = self.basic2(x)
         x = self.basic3(x)
         x = self.basic4(x)
-        # x = x.reshape(x.shape[0], -1)
-        x = torch.flatten(x, start_dim=1)
+        x = x.reshape(x.shape[0], -1)
         x = self.fc1(x)
         x = self.relu2(x)
         return self.fc2(x)
