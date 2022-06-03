@@ -7,15 +7,6 @@
 """
 
 import argparse
-from tqdm import tqdm
-from torch.utils.tensorboard import SummaryWriter
-
-from data import *
-from utils import *
-from ResNet import *
-
-
-import argparse
 
 from tqdm import tqdm
 from torch.utils.tensorboard import SummaryWriter
@@ -44,7 +35,8 @@ def train(args, epoch):
 
         # print statistics
         # running_loss += loss.item()
-        writer.add_scalar("loss/train", loss, (epoch + 1) * (1 + index))
+        writer.add_scalar("loss/train", loss, index_num)
+        index_num = index_num+ 1
         train_tqdm.set_postfix({"loss": "%.3g" % loss.item()})
 
         # if index % 20 == 19:    # print every 2000 mini-batches
@@ -103,6 +95,8 @@ if __name__ == "__main__":
 
     train_loader, test_loader, classes = cifar100_dataset(args)
 
+    index_num = 0
+
     # dataiter = iter(train_loader)
     # images, labels = dataiter.next()
     #
@@ -134,3 +128,4 @@ if __name__ == "__main__":
     plt.plot(np.arange(1, args.epochs + 1), accv)
     plt.title('validation accuracy')
     plt.savefig(os.path.join(args.logdir, 'validation_accuracy'))
+
