@@ -16,7 +16,7 @@ from utils import *
 from ResNet import *
 
 
-def train(args, epoch):
+def train(args, epoch, index_num):
     # running_loss = 0.0
     train_tqdm = tqdm(train_loader, desc="Epoch " + str(epoch))
     for index, (inputs, labels) in enumerate(train_tqdm):
@@ -36,7 +36,7 @@ def train(args, epoch):
         # print statistics
         # running_loss += loss.item()
         writer.add_scalar("loss/train", loss, index_num)
-        index_num = index_num+ 1
+        index_num = index_num + 1
         train_tqdm.set_postfix({"loss": "%.3g" % loss.item()})
 
         # if index % 20 == 19:    # print every 2000 mini-batches
@@ -74,8 +74,9 @@ def main(args, loss_vector, accuracy_vector):
     logger.info("  Num examples = %d", len(train_loader) * args.batch_size)
     logger.info("  Num Epochs = %d", args.epochs)
     logger.info("  Batch size = %d", args.batch_size)
+    index_num = 0
     for epoch in range(args.epochs):
-        train(args, epoch)
+        train(args, epoch, index_num)
         PATH = os.path.join(args.logdir, 'cifar_net.pth')
         torch.save(net.state_dict(), PATH)
         with torch.no_grad():
@@ -94,8 +95,6 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     train_loader, test_loader, classes = cifar100_dataset(args)
-
-    index_num = 0
 
     # dataiter = iter(train_loader)
     # images, labels = dataiter.next()
