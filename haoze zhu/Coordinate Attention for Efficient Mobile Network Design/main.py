@@ -7,6 +7,7 @@
 """
 
 import argparse
+
 from tqdm import tqdm
 from torch.utils.tensorboard import SummaryWriter
 
@@ -16,8 +17,10 @@ from ResNet import *
 
 
 def train(args, epoch):
-    running_loss = 0.0
-    for index, (inputs, labels) in tqdm(enumerate(train_loader, 0), desc="Epoch " + str(epoch)):
+    # running_loss = 0.0
+    train_tqdm = tqdm(train_loader, desc="Epoch " + str(epoch))
+    for index, (inputs, labels) in enumerate(train_tqdm):
+        # print(inputs.shape, labels.shape)
         # get the inputs; data is a list of [inputs, labels]
         # inputs, labels = data
 
@@ -31,11 +34,14 @@ def train(args, epoch):
         optimizer.step()
 
         # print statistics
-        running_loss += loss.item()
-        writer1.add_scalar("loss/train", running_loss, (epoch+1)*index)
-        if index % 20 == 19:    # print every 2000 mini-batches
-            logger.info(f'[{epoch + 1}, {index + 1:5d}] loss: {running_loss / 2000:.3f}')
-            running_loss = 0.0
+        # running_loss += loss.item()
+        writer.add_scalar("loss/train", loss, index_num)
+        index_num = index_num+ 1
+        train_tqdm.set_postfix({"loss": "%.3g" % loss.item()})
+
+        # if index % 20 == 19:    # print every 2000 mini-batches
+        #     logger.info(f'[{epoch + 1}, {index + 1:5d}] loss: {running_loss / 2000:.3f}')
+        #     running_loss = 0.0
 
 
 def validate(args, epoch, loss_vector, accuracy_vector):
@@ -52,11 +58,11 @@ def validate(args, epoch, loss_vector, accuracy_vector):
 
     val_loss /= len(test_loader)
     loss_vector.append(val_loss)
-    writer2.add_scalar("loss/validation", val_loss, (epoch+1))
+    writer.add_scalar("loss/validation", val_loss, epoch)
 
     accuracy = 100. * correct.to(torch.float32) / len(test_loader.dataset)
     accuracy_vector.append(accuracy)
-    writer2.add_scalar("accuracy/validation", accuracy, (epoch+1))
+    writer.add_scalar("accuracy/validation", accuracy, epoch)
 
     logger.info("***** Eval results *****")
     logger.info('\nValidation set: Average loss: {:.4f}, Accuracy: {}/{} ({:.0f}%)\n'.format(
@@ -72,7 +78,8 @@ def main(args, loss_vector, accuracy_vector):
         train(args, epoch)
         PATH = os.path.join(args.logdir, 'cifar_net.pth')
         torch.save(net.state_dict(), PATH)
-        validate(args, epoch, loss_vector, accuracy_vector)
+        with torch.no_grad():
+            validate(args, epoch, loss_vector, accuracy_vector)
 
 
 if __name__ == "__main__":
@@ -88,14 +95,16 @@ if __name__ == "__main__":
 
     train_loader, test_loader, classes = cifar100_dataset(args)
 
+    index_num = 0
+
     # dataiter = iter(train_loader)
     # images, labels = dataiter.next()
     #
     # imshow(torchvision.utils.make_grid(images))
 
-    writer1 = SummaryWriter(args.logdir)
-    writer2 = SummaryWriter(args.logdir)
-    writer3 = SummaryWriter(args.logdir)
+    writer = SummaryWriter(os.path.join(args.logdir, "tensorboard"))
+    # writer2 = SummaryWriter(args.logdir)
+    # writer3 = SummaryWriter(args.logdir)
 
     net = ResNet().to(args.device)
 
