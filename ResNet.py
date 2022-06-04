@@ -11,6 +11,54 @@ import torch
 import torch.nn as nn
 
 
+
+class ChannelPool(nn.Module):
+    def forward(self, x):
+        return torch.cat(
+            (torch.max(x, 1)[0].unsqueeze(1), torch.mean(x, 1).unsqueeze(1)), dim=1
+        )
+
+
+class SpatialGate(nn.Module):
+    def __init__(self):
+        super(SpatialGate, self).__init__()
+        kernel_size = 7
+        self.compress = ChannelPool()
+        self.spatial = nn.Conv2d(
+            2, 1, kernel_size, stride=1, padding=(kernel_size - 1) // 2, relu=False
+        )
+
+    def forward(self, x):
+        x_compress = self.compress(x)
+        x_out = self.spatial(x_compress)
+        scale = torch.sigmoid(x_out)
+        return x * scale
+
+
+class TripletAttention(nn.Module):
+    def __init__(self, no_spatial=False):
+        super(TripletAttention, self).__init__()
+        self.ChannelGateH = SpatialGate()
+        self.ChannelGateW = SpatialGate()
+        self.no_spatial = no_spatial
+        if not no_spatial:
+            self.SpatialGate = SpatialGate()
+
+    def forward(self, x):
+        x_perm1 = x.permute(0, 2, 1, 3).contiguous()
+        x_out1 = self.ChannelGateH(x_perm1)
+        x_out11 = x_out1.permute(0, 2, 1, 3).contiguous()
+        x_perm2 = x.permute(0, 3, 2, 1).contiguous()
+        x_out2 = self.ChannelGateW(x_perm2)
+        x_out21 = x_out2.permute(0, 3, 2, 1).contiguous()
+        if not self.no_spatial:
+            x_out = self.SpatialGate(x)
+            x_out = (1 / 3) * (x_out + x_out11 + x_out21)
+        else:
+            x_out = (1 / 2) * (x_out11 + x_out21)
+        return x_out
+
+
 class DownSample(nn.Module):
     def __init__(self, in_channels, out_channels):
         super(DownSample, self).__init__()
@@ -41,6 +89,7 @@ class BasicBlock(nn.Module):
         out = self.bn1(out)
         out = self.relu1(out)
         out = self.conv2(out)
+        out = self.triplet_attention(out)
         out = self.bn2(out)
         if self.down_sample:
             x = self.sample(x)
