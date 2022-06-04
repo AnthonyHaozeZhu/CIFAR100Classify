@@ -8,8 +8,7 @@
 
 import argparse
 
-import \
-    torch.optim
+import torch.optim
 from tqdm import tqdm
 from torch.utils.tensorboard import SummaryWriter
 

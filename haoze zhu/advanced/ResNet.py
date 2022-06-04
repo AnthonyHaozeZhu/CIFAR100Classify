@@ -67,7 +67,7 @@ class CoordAtt(nn.Module):
         # print(y.shape)
         y = torch.unsqueeze(y, dim=-1)
         # print("y:", y.shape)
-        # y = self.act(y)
+        y = self.act(y)
         # 将这一层的两个操作 替换成multi head self-attention
         # print("y2:", y.shape)
 
