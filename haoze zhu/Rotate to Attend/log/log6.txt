@@ -1,0 +1,164 @@
+06/03/2022 17:59:37 - INFO - utils -   ***** Running training *****
+06/03/2022 17:59:37 - INFO - utils -     Num examples = 50048
+06/03/2022 17:59:37 - INFO - utils -     Num Epochs = 40
+06/03/2022 17:59:37 - INFO - utils -     Batch size = 128
+06/03/2022 18:00:57 - INFO - utils -   ***** Eval results *****
+06/03/2022 18:00:57 - INFO - utils -   
+Validation set: Average loss: 3.1857, Accuracy: 2286/10000 (23%)
+
+06/03/2022 18:02:01 - INFO - utils -   ***** Eval results *****
+06/03/2022 18:02:01 - INFO - utils -   
+Validation set: Average loss: 2.8277, Accuracy: 2870/10000 (29%)
+
+06/03/2022 18:03:11 - INFO - utils -   ***** Eval results *****
+06/03/2022 18:03:11 - INFO - utils -   
+Validation set: Average loss: 2.6024, Accuracy: 3440/10000 (34%)
+
+06/03/2022 18:04:26 - INFO - utils -   ***** Eval results *****
+06/03/2022 18:04:26 - INFO - utils -   
+Validation set: Average loss: 2.5100, Accuracy: 3620/10000 (36%)
+
+06/03/2022 18:05:49 - INFO - utils -   ***** Eval results *****
+06/03/2022 18:05:49 - INFO - utils -   
+Validation set: Average loss: 2.3939, Accuracy: 3878/10000 (39%)
+
+06/03/2022 18:07:13 - INFO - utils -   ***** Eval results *****
+06/03/2022 18:07:13 - INFO - utils -   
+Validation set: Average loss: 2.2893, Accuracy: 4094/10000 (41%)
+
+06/03/2022 18:08:32 - INFO - utils -   ***** Eval results *****
+06/03/2022 18:08:32 - INFO - utils -   
+Validation set: Average loss: 2.2181, Accuracy: 4288/10000 (43%)
+
+06/03/2022 18:09:45 - INFO - utils -   ***** Eval results *****
+06/03/2022 18:09:45 - INFO - utils -   
+Validation set: Average loss: 2.1095, Accuracy: 4546/10000 (45%)
+
+06/03/2022 18:10:47 - INFO - utils -   ***** Eval results *****
+06/03/2022 18:10:47 - INFO - utils -   
+Validation set: Average loss: 2.0438, Accuracy: 4750/10000 (48%)
+
+06/03/2022 18:29:42 - INFO - utils -   ***** Eval results *****
+06/03/2022 18:29:42 - INFO - utils -   
+Validation set: Average loss: 2.0425, Accuracy: 4660/10000 (47%)
+
+06/03/2022 18:31:02 - INFO - utils -   ***** Eval results *****
+06/03/2022 18:31:02 - INFO - utils -   
+Validation set: Average loss: 2.0285, Accuracy: 4726/10000 (47%)
+
+06/03/2022 18:47:49 - INFO - utils -   ***** Eval results *****
+06/03/2022 18:47:49 - INFO - utils -   
+Validation set: Average loss: 1.9750, Accuracy: 4903/10000 (49%)
+
+06/03/2022 19:20:52 - INFO - utils -   ***** Eval results *****
+06/03/2022 19:20:52 - INFO - utils -   
+Validation set: Average loss: 1.9898, Accuracy: 4910/10000 (49%)
+
+06/03/2022 19:38:31 - INFO - utils -   ***** Eval results *****
+06/03/2022 19:38:31 - INFO - utils -   
+Validation set: Average loss: 1.9065, Accuracy: 5056/10000 (51%)
+
+06/03/2022 19:39:31 - INFO - utils -   ***** Eval results *****
+06/03/2022 19:39:31 - INFO - utils -   
+Validation set: Average loss: 1.9429, Accuracy: 5030/10000 (50%)
+
+06/03/2022 19:40:45 - INFO - utils -   ***** Eval results *****
+06/03/2022 19:40:45 - INFO - utils -   
+Validation set: Average loss: 1.9507, Accuracy: 5079/10000 (51%)
+
+06/03/2022 19:42:16 - INFO - utils -   ***** Eval results *****
+06/03/2022 19:42:16 - INFO - utils -   
+Validation set: Average loss: 1.9475, Accuracy: 5046/10000 (50%)
+
+06/03/2022 19:43:57 - INFO - utils -   ***** Eval results *****
+06/03/2022 19:43:57 - INFO - utils -   
+Validation set: Average loss: 1.9354, Accuracy: 5121/10000 (51%)
+
+06/03/2022 19:45:37 - INFO - utils -   ***** Eval results *****
+06/03/2022 19:45:37 - INFO - utils -   
+Validation set: Average loss: 1.9937, Accuracy: 5069/10000 (51%)
+
+06/03/2022 19:47:17 - INFO - utils -   ***** Eval results *****
+06/03/2022 19:47:17 - INFO - utils -   
+Validation set: Average loss: 1.9576, Accuracy: 5182/10000 (52%)
+
+06/03/2022 19:49:10 - INFO - utils -   ***** Eval results *****
+06/03/2022 19:49:10 - INFO - utils -   
+Validation set: Average loss: 1.9750, Accuracy: 5240/10000 (52%)
+
+06/03/2022 19:51:24 - INFO - utils -   ***** Eval results *****
+06/03/2022 19:51:24 - INFO - utils -   
+Validation set: Average loss: 1.9761, Accuracy: 5214/10000 (52%)
+
+06/03/2022 19:53:49 - INFO - utils -   ***** Eval results *****
+06/03/2022 19:53:49 - INFO - utils -   
+Validation set: Average loss: 2.0119, Accuracy: 5195/10000 (52%)
+
+06/03/2022 19:55:56 - INFO - utils -   ***** Eval results *****
+06/03/2022 19:55:56 - INFO - utils -   
+Validation set: Average loss: 1.9466, Accuracy: 5269/10000 (53%)
+
+06/03/2022 19:58:18 - INFO - utils -   ***** Eval results *****
+06/03/2022 19:58:18 - INFO - utils -   
+Validation set: Average loss: 1.9487, Accuracy: 5313/10000 (53%)
+
+06/03/2022 20:00:31 - INFO - utils -   ***** Eval results *****
+06/03/2022 20:00:31 - INFO - utils -   
+Validation set: Average loss: 2.0380, Accuracy: 5226/10000 (52%)
+
+06/03/2022 20:02:54 - INFO - utils -   ***** Eval results *****
+06/03/2022 20:02:54 - INFO - utils -   
+Validation set: Average loss: 2.0119, Accuracy: 5279/10000 (53%)
+
+06/03/2022 20:05:31 - INFO - utils -   ***** Eval results *****
+06/03/2022 20:05:31 - INFO - utils -   
+Validation set: Average loss: 2.0516, Accuracy: 5254/10000 (53%)
+
+06/03/2022 20:07:45 - INFO - utils -   ***** Eval results *****
+06/03/2022 20:07:45 - INFO - utils -   
+Validation set: Average loss: 2.0238, Accuracy: 5253/10000 (53%)
+
+06/03/2022 20:10:05 - INFO - utils -   ***** Eval results *****
+06/03/2022 20:10:05 - INFO - utils -   
+Validation set: Average loss: 2.0258, Accuracy: 5365/10000 (54%)
+
+06/03/2022 20:12:23 - INFO - utils -   ***** Eval results *****
+06/03/2022 20:12:23 - INFO - utils -   
+Validation set: Average loss: 2.0112, Accuracy: 5333/10000 (53%)
+
+06/03/2022 20:14:42 - INFO - utils -   ***** Eval results *****
+06/03/2022 20:14:42 - INFO - utils -   
+Validation set: Average loss: 2.0553, Accuracy: 5306/10000 (53%)
+
+06/03/2022 20:16:54 - INFO - utils -   ***** Eval results *****
+06/03/2022 20:16:54 - INFO - utils -   
+Validation set: Average loss: 2.0615, Accuracy: 5372/10000 (54%)
+
+06/03/2022 20:18:14 - INFO - utils -   ***** Eval results *****
+06/03/2022 20:18:14 - INFO - utils -   
+Validation set: Average loss: 2.0902, Accuracy: 5309/10000 (53%)
+
+06/03/2022 20:19:26 - INFO - utils -   ***** Eval results *****
+06/03/2022 20:19:26 - INFO - utils -   
+Validation set: Average loss: 2.1250, Accuracy: 5404/10000 (54%)
+
+06/03/2022 20:20:28 - INFO - utils -   ***** Eval results *****
+06/03/2022 20:20:28 - INFO - utils -   
+Validation set: Average loss: 2.0844, Accuracy: 5463/10000 (55%)
+
+06/03/2022 20:21:40 - INFO - utils -   ***** Eval results *****
+06/03/2022 20:21:40 - INFO - utils -   
+Validation set: Average loss: 2.0970, Accuracy: 5378/10000 (54%)
+
+06/03/2022 20:23:02 - INFO - utils -   ***** Eval results *****
+06/03/2022 20:23:02 - INFO - utils -   
+Validation set: Average loss: 2.1442, Accuracy: 5389/10000 (54%)
+
+06/03/2022 20:24:26 - INFO - utils -   ***** Eval results *****
+06/03/2022 20:24:26 - INFO - utils -   
+Validation set: Average loss: 2.1397, Accuracy: 5318/10000 (53%)
+
+06/03/2022 20:25:45 - INFO - utils -   ***** Eval results *****
+06/03/2022 20:25:45 - INFO - utils -   
+Validation set: Average loss: 2.1976, Accuracy: 5362/10000 (54%)
+
