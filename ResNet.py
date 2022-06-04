@@ -89,10 +89,10 @@ class BasicBlock(nn.Module):
         out = self.bn1(out)
         out = self.relu1(out)
         out = self.conv2(out)
-        out = self.triplet_attention(out)
         out = self.bn2(out)
         if self.down_sample:
             x = self.sample(x)
+        out = self.triplet_attention(out)
         out = self.relu2(out + x)
         return out
 
