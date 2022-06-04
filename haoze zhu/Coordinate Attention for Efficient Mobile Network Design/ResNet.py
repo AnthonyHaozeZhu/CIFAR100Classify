@@ -95,9 +95,9 @@ class BasicBlock(nn.Module):
     def forward(self, x):
         a = x
         out = self.conv1(x)
-        out = self.attention(out)
         out = self.bn1(out)
         out = self.relu1(out)
+        out = self.attention(out)
         # out = out * att
         out = self.conv2(out)
         out = self.bn2(out)

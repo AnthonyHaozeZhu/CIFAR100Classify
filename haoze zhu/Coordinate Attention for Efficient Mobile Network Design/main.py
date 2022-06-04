@@ -65,7 +65,7 @@ def validate(args, epoch, loss_vector, accuracy_vector):
     writer.add_scalar("accuracy/validation", accuracy, epoch)
 
     logger.info("***** Eval results *****")
-    logger.info('\nValidation set: Average loss: {:.4f}, Accuracy: {}/{} ({:.0f}%)\n'.format(
+    logger.info('\nValidation set: Average loss: {:.4f}, Accuracy: {}/{} ({:.4f}%)\n'.format(
         val_loss, correct, len(test_loader.dataset), accuracy))
 
 
