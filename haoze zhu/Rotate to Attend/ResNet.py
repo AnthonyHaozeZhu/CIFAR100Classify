@@ -77,13 +77,7 @@ class SpatialGate(nn.Module):
 
 
 class TripletAttention(nn.Module):
-    def __init__(
-        self,
-        gate_channels,
-        reduction_ratio=16,
-        pool_types=["avg", "max"],
-        no_spatial=False,
-    ):
+    def __init__(self, no_spatial=False):
         super(TripletAttention, self).__init__()
         self.ChannelGateH = SpatialGate()
         self.ChannelGateW = SpatialGate()
@@ -128,6 +122,7 @@ class BasicBlock(nn.Module):
         self.conv2 = nn.Conv2d(out_channels, out_channels, kernel_size=(3, 3), stride=stride, padding=1)
         self.relu2 = nn.ReLU()
         self.bn2 = nn.BatchNorm2d(out_channels)
+        self.triplet_attention = TripletAttention(out_channels * 4)
         if self.down_sample:
             self.sample = DownSample(in_channels, out_channels)
 
@@ -139,6 +134,7 @@ class BasicBlock(nn.Module):
         out = self.bn2(out)
         if self.down_sample:
             x = self.sample(x)
+        out = self.triplet_attention(out)
         out = self.relu2(out + x)
         return out
 

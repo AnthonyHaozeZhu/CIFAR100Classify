@@ -87,7 +87,7 @@ if __name__ == "__main__":
     parser.add_argument("--data_path", default="../data", type=str, help="The input data dir")
     parser.add_argument("--batch_size", default=4, type=int, help="The batch size of training")
     parser.add_argument("--device", default='cpu', type=str, help="The training device")
-    parser.add_argument("--learning_rate", default=0.0004, type=int, help="learning rate")
+    parser.add_argument("--learning_rate", default=0.0004, type=float, help="learning rate")
     parser.add_argument("--epochs", default=20, type=int, help="Training epoch")
     parser.add_argument("--logdir", default="./log", type=str)
 
