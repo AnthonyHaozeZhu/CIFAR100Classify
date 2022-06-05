@@ -17,6 +17,9 @@ num_workers = 2
 
 def cifar100_dataset(args):
     transform_train = transforms.Compose([
+        transforms.RandomCrop(32, padding=4),
+        transforms.RandomHorizontalFlip(),
+        transforms.RandomRotation(15),  # 数据增强
         transforms.ToTensor(),
         transforms.Normalize(mean, std)
     ])
