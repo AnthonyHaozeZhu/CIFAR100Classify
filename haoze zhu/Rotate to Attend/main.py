@@ -18,6 +18,7 @@ from ResNet import *
 
 def train(args, epoch, index_num):
     # running_loss = 0.0
+    net.train()
     train_tqdm = tqdm(train_loader, desc="Epoch " + str(epoch))
     for index, (inputs, labels) in enumerate(train_tqdm):
         # print(inputs.shape, labels.shape)
@@ -30,6 +31,7 @@ def train(args, epoch, index_num):
         # forward + backward + optimize
         outputs = net(inputs.to(args.device))
         loss = criterion(outputs, labels.to(args.device))
+        # print(labels, outputs)
         loss.backward()
         optimizer.step()
 
@@ -53,8 +55,8 @@ def validate(args, epoch, loss_vector, accuracy_vector):
         output = net(data)
         val_loss += criterion(output, target.to(args.device)).data.item()
 
-        pred = output.data.max(1)[1]  # get the index of the max log-probability
-        correct += pred.eq(target.data).cpu().sum()
+        pred = torch.argmax(output, dim=1)  # get the index of the max log-probability
+        correct += torch.sum(pred == target).cpu()
 
     val_loss /= len(test_loader)
     loss_vector.append(val_loss)

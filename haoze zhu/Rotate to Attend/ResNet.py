@@ -72,7 +72,7 @@ class SpatialGate(nn.Module):
     def forward(self, x):
         x_compress = self.compress(x)
         x_out = self.spatial(x_compress)
-        scale = torch.sigmoid_(x_out)
+        scale = torch.sigmoid(x_out)
         return x * scale
 
 
