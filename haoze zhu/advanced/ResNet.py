@@ -39,7 +39,7 @@ class CoordAtt(nn.Module):
         self.conv1 = nn.Conv2d(inp, mip, kernel_size=(1, 1), stride=(1, 1), padding=0)
         self.attention = nn.MultiheadAttention(
             embed_dim=img_shape * 2,
-            num_heads=8,
+            num_heads=1,
             batch_first=True)
         self.bn1 = nn.BatchNorm2d(mip)
         self.act = h_swish()
@@ -60,12 +60,14 @@ class CoordAtt(nn.Module):
 
         y = self.conv1(y)
 
-        y = self.bn1(y)
-        # print(y.shape)
         y = torch.squeeze(y)
         y = self.attention(y, y, y)[0]
         # print(y.shape)
         y = torch.unsqueeze(y, dim=-1)
+
+        y = self.bn1(y)
+        # print(y.shape)
+
         # print("y:", y.shape)
         y = self.act(y)
         # 将这一层的两个操作 替换成multi head self-attention

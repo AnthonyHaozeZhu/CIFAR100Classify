@@ -55,6 +55,8 @@ def validate(args, epoch, loss_vector, accuracy_vector):
         val_loss += criterion(output, target.to(args.device)).data.item()
 
         pred = output.data.max(1)[1]  # get the index of the max log-probability
+        # logger.info("0:{}".format(pred.cpu().data))
+        # logger.info("1:{}".format(target.data))
         correct += pred.eq(target.data).cpu().sum()
 
     val_loss /= len(test_loader)
