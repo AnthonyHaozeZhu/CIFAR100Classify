@@ -15,7 +15,7 @@ class DoubleAtten(nn.Module):
     """
     A2-Nets: Double Attention Networks. NIPS 2018
     """
-    def __init__(self,in_c):
+    def __init__(self, in_c):
         """
         :param
         in_c: 进行注意力refine的特征图的通道数目；
@@ -69,6 +69,7 @@ class BasicBlock(nn.Module):
         self.conv2 = nn.Conv2d(out_channels, out_channels, kernel_size=(3, 3), stride=stride, padding=1)
         self.relu2 = nn.ReLU()
         self.bn2 = nn.BatchNorm2d(out_channels)
+        self.double_att = DoubleAtten(out_channels)
         if self.down_sample:
             self.sample = DownSample(in_channels, out_channels)
 
@@ -76,6 +77,7 @@ class BasicBlock(nn.Module):
         out = self.conv1(x)
         out = self.bn1(out)
         out = self.relu1(out)
+        out = self.double_att(out)
         out = self.conv2(out)
         out = self.bn2(out)
         if self.down_sample:
