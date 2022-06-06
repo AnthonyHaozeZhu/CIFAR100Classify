@@ -18,6 +18,7 @@ from ResNet import *
 
 def train(args, epoch, index_num):
     # running_loss = 0.0
+    net.train()
     train_tqdm = tqdm(train_loader, desc="Epoch " + str(epoch))
     for index, (inputs, labels) in enumerate(train_tqdm):
         # print(inputs.shape, labels.shape)
@@ -65,8 +66,8 @@ def validate(args, epoch, loss_vector, accuracy_vector):
     writer.add_scalar("accuracy/validation", accuracy, epoch)
 
     logger.info("***** Eval results *****")
-    logger.info('\nValidation set: Average loss: {:.4f}, Accuracy: {}/{} ({:.4f}%)\n'.format(
-        val_loss, correct, len(test_loader.dataset), accuracy))
+    logger.info('\nepoch: {}, Validation set: Average loss: {:.4f}, Accuracy: {}/{} ({:.4f}%)\n'.format(
+        epoch, val_loss, correct, len(test_loader.dataset), accuracy))
 
 
 def main(args, loss_vector, accuracy_vector, index_num):

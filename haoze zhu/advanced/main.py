@@ -18,6 +18,7 @@ from ResNet import *
 
 
 def train(args, epoch, index_num):
+    net.train()
     # running_loss = 0.0
     train_tqdm = tqdm(train_loader, desc="Epoch " + str(epoch))
     for index, (inputs, labels) in enumerate(train_tqdm):
