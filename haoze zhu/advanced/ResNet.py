@@ -28,9 +28,9 @@ class h_swish(nn.Module):
         return x * self.sigmoid(x)
 
 
-class CoordAtt(nn.Module):
+class CoordAtt_mix(nn.Module):
     def __init__(self, inp, oup, img_shape, reduction=32):
-        super(CoordAtt, self).__init__()
+        super(CoordAtt_mix, self).__init__()
         self.pool_h = nn.AdaptiveAvgPool2d((None, 1))
         self.pool_w = nn.AdaptiveAvgPool2d((1, None))
 
@@ -105,7 +105,7 @@ class BasicBlock(nn.Module):
         super(BasicBlock, self).__init__()
         self.down_sample = down_sample
         self.conv1 = nn.Conv2d(in_channels, out_channels, kernel_size=(3, 3), stride=(1, 1), padding=1)
-        self.attention = CoordAtt(out_channels, out_channels, img_shape)
+        self.attention = CoordAtt_mix(out_channels, out_channels, img_shape)
         self.bn1 = nn.BatchNorm2d(out_channels)
         self.relu1 = nn.ReLU()
         self.conv2 = nn.Conv2d(out_channels, out_channels, kernel_size=(3, 3), stride=stride, padding=1)
